@@ -1,7 +1,7 @@
 package com.qr.club.controller;
 
-import com.qr.club.entity.Member;
 import com.qr.club.entity.dto.MemberDto;
+import com.qr.club.entity.response.MemberResponse;
 import com.qr.club.service.QrService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,17 +22,17 @@ public class QrController {
     private final QrService service;
 
     @GetMapping("/enter")
-    public MemberDto enterClub(@RequestParam UUID uuid) {
+    public MemberResponse enterClub(@RequestParam UUID uuid) {
         return service.enterClub(uuid);
     }
 
     @PostMapping("/new")
-    public Member create(@RequestBody MemberDto dto) {
+    public MemberResponse create(@RequestBody MemberDto dto) {
        return service.create(dto);
     }
 
     @PutMapping("/change")
-    public MemberDto update(@RequestBody MemberDto dto, @RequestParam UUID uuid) {
+    public MemberResponse update(@RequestBody MemberDto dto, @RequestParam UUID uuid) {
         return service.update(dto, uuid);
     }
 
