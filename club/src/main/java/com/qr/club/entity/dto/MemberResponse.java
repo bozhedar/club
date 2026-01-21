@@ -1,7 +1,4 @@
-package com.qr.club.entity.response;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+package com.qr.club.entity.dto;
 
 import java.util.UUID;
 

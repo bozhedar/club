@@ -1,13 +1,16 @@
 package com.qr.club.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,19 +22,13 @@ import java.util.UUID;
 @Entity
 @Table(schema = "qrclub", name = "members")
 @NoArgsConstructor
-@SecondaryTable(
-        name = "member_uuid",
-        schema = "qrclub",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "member_id")
-)
+@AllArgsConstructor
+@Builder
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(table = "member_uuid", columnDefinition = "UUID")
-    private UUID uuid;
 
     @Column(nullable = false, length = 32)
     private String name;
@@ -42,11 +39,6 @@ public class Member {
     @Column(length = 32)
     private String middleName;
 
-    public Member(String name, String surname, String middleName) {
-        this.name = name;
-        this.surname = surname;
-        this.middleName = middleName;
-        this.uuid = UUID.randomUUID();
-    }
-
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private QrCode qrCode;
 }

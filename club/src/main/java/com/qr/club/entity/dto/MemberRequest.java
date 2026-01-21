@@ -3,7 +3,7 @@ package com.qr.club.entity.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record MemberDto(
+public record MemberRequest(
         @NotBlank(message = "Имя обязательно")
         @Size(max = 32, message = "Имя не должно превышать 32 символа")
         String name,

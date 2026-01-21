@@ -1,34 +1,29 @@
 package com.qr.club.mapper;
 
 import com.qr.club.entity.Member;
-import com.qr.club.entity.dto.MemberDto;
-import com.qr.club.entity.response.MemberResponse;
-import org.springframework.stereotype.Component;
+import com.qr.club.entity.dto.MemberRequest;
+import com.qr.club.entity.dto.MemberResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class MemberMapper {
-    public MemberDto toMemberDto(Member m) {
-        return new MemberDto(
-                m.getName(),
-                m.getSurname(),
-                m.getMiddleName()
-        );
-    }
+import java.util.Optional;
 
-    public Member toMember(MemberDto m) {
-        return new Member(
-                m.name(),
-                m.surname(),
-                m.middleName()
-        );
-    }
+@Mapper(componentModel = "spring")
+public interface MemberMapper {
 
-    public MemberResponse toMemberResponse(Member m) {
-        return new MemberResponse(
-                m.getUuid(),
-                m.getName(),
-                m.getSurname(),
-                m.getMiddleName()
-        );
+    @Mapping(source = "qrCode.uuid", target = "uuid")
+    MemberResponse toResponse(Member member);
+
+    Member toEntity(MemberRequest request);
+
+    default void updateEntityFromRequest(Member member, MemberRequest request){
+        Optional.ofNullable(request.name())
+                .ifPresent(member::setName);
+        Optional.ofNullable(request.surname())
+                .ifPresent(member::setSurname);
+        Optional.ofNullable(request.middleName())
+                .ifPresent(member::setMiddleName);
     }
 }
