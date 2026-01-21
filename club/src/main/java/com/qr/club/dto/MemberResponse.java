@@ -1,4 +1,4 @@
-package com.qr.club.entity.dto;
+package com.qr.club.dto;
 
 import java.util.UUID;
 

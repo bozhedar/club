@@ -1,9 +1,10 @@
 package com.qr.club.service;
 
-import com.qr.club.entity.Member;
-import com.qr.club.entity.QrCode;
-import com.qr.club.entity.dto.MemberRequest;
-import com.qr.club.entity.dto.MemberResponse;
+
+import com.qr.club.entity.MemberEntity;
+import com.qr.club.dto.MemberRequest;
+import com.qr.club.dto.MemberResponse;
+import com.qr.club.entity.QrCodeEntity;
 import com.qr.club.exception.MemberRepositoryException;
 import com.qr.club.mapper.MemberMapper;
 import com.qr.club.repository.MemberRepository;
@@ -23,8 +24,8 @@ public class MemberService {
     private final MemberMapper mapper;
 
     public MemberResponse create(MemberRequest dto) {
-        Member member = mapper.toEntity(dto);
-        member.setQrCode(new QrCode(member.getId(), UUID.randomUUID(), member));
+        MemberEntity member = mapper.toEntity(dto);
+        member.setQrCode(new QrCodeEntity(member.getId(), UUID.randomUUID(), member));
 
         return mapper.toResponse(
                 repository.save(member)
@@ -33,7 +34,7 @@ public class MemberService {
 
     public MemberResponse update(MemberRequest dto, UUID uuid) {
 
-        Member member = repository.findOptionalByUuid(uuid)
+        MemberEntity member = repository.findOptionalByUuid(uuid)
                 .orElseThrow(() -> new MemberRepositoryException("Member not found"));
 
         mapper.updateEntityFromRequest(member, dto);
@@ -52,7 +53,7 @@ public class MemberService {
     }
 
     public MemberResponse enterClub(UUID uuid) {
-        Member member = repository.findOptionalByUuid(uuid)
+        MemberEntity member = repository.findOptionalByUuid(uuid)
                 .orElseThrow(() -> new MemberRepositoryException("Member not found"));
 
         member.getQrCode().setUuid(

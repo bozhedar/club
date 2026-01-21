@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-public class QrCode {
+public class QrCodeEntity {
     @Id
     @Column(name = "member_id")
     private Long id;
@@ -32,6 +31,6 @@ public class QrCode {
     @MapsId
     @OneToOne
     @JoinColumn(name = "member_id")
-    private Member member;
+    private MemberEntity member;
 
 }

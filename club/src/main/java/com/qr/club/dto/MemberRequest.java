@@ -1,4 +1,4 @@
-package com.qr.club.entity.dto;
+package com.qr.club.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

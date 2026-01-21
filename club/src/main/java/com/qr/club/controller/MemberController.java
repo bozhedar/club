@@ -1,7 +1,7 @@
 package com.qr.club.controller;
 
-import com.qr.club.entity.dto.MemberRequest;
-import com.qr.club.entity.dto.MemberResponse;
+import com.qr.club.dto.MemberRequest;
+import com.qr.club.dto.MemberResponse;
 import com.qr.club.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
